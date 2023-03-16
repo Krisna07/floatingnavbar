@@ -1,7 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Submenu from './Submenu';
-import { FaCaretUp } from 'react-icons/fa';
+import {
+  FaCaretUp,
+  FaFire,
+  FaChevronRight,
+  FaArrowRight,
+} from 'react-icons/fa';
 
+interface navbar {
+  menu: {
+    title: string;
+    submenu: string[];
+  };
+}
 export default function Navbar() {
   const menu = [
     {
@@ -43,30 +54,31 @@ export default function Navbar() {
         'Support',
       ],
     },
+
     {
-      title: 'Blog',
+      title: 'Social Media',
       subMenu: [
-        'Latest Posts',
-        'Categories',
-        'Archives',
-        'Tags',
-        'Search',
-        'Comments',
-        'RSS Feed',
-        'Subscribe',
+        'Facebook',
+        'Twitter',
+        'Instagram',
+        'LinkedIn',
+        'YouTube',
+        'Pinterest',
+        'Snapchat',
+        'TikTok',
       ],
     },
     {
-      title: 'Portfolio',
+      title: 'Newsletter',
       subMenu: [
-        'Web Projects',
-        'AI Projects',
-        'NLP Projects',
-        'ML Projects',
-        'DL Projects',
-        'CV Projects',
-        'RL Projects',
-        'GAN Projects',
+        'Subscribe',
+        'Unsubscribe',
+        'Manage Preferences',
+        'View Archive',
+        'Share with Friends',
+        'Report Issues',
+        'Contact Us',
+        'Donate',
       ],
     },
     {
@@ -108,37 +120,10 @@ export default function Navbar() {
         'License Policy',
       ],
     },
-    {
-      title: 'Social Media',
-      subMenu: [
-        'Facebook',
-        'Twitter',
-        'Instagram',
-        'LinkedIn',
-        'YouTube',
-        'Pinterest',
-        'Snapchat',
-        'TikTok',
-      ],
-    },
-    {
-      title: 'Newsletter',
-      subMenu: [
-        'Subscribe',
-        'Unsubscribe',
-        'Manage Preferences',
-        'View Archive',
-        'Share with Friends',
-        'Report Issues',
-        'Contact Us',
-        'Donate',
-      ],
-    },
   ];
-  const [submenu, setSubmenus] = useState(null);
+  const [submenu, setSubmenus] = useState();
   const [right, setRight] = useState();
-
-  console.log(submenu);
+  const [subWidth, setSubwidth] = useState();
 
   const navref = useRef(null);
   const handleMenu = (event: any) => {
@@ -150,13 +135,20 @@ export default function Navbar() {
       x: childRect.left - parentRect.left,
       y: childRect.top - parentRect.top,
     };
+
     setRight(childPos.x + childCenter);
   };
+  const getSubwith = (width: any) => {
+    setSubwidth(width);
+  };
 
-  console.log(right);
+  const [btnIcon, setBtnicon] = useState(<FaChevronRight />);
+
   return (
     <div className="nav-container">
-      <div className="logoContainer"></div>
+      <div className="logoContainer">
+        <FaFire />
+      </div>
       <div className="menuContainer" onMouseLeave={() => setSubmenus()}>
         <ul className="menulistContainer" ref={navref}>
           {menu.map((menu, x) => (
@@ -176,11 +168,23 @@ export default function Navbar() {
           {submenu ? <FaCaretUp /> : ''}
         </span>
 
-        <div className="floatingNavbar" style={{ left: `${right - 100}px` }}>
-          {submenu ? <Submenu submenus={submenu} /> : ''}
+        <div className="floatingNavbar" style={{ left: `${right}px` }}>
+          {submenu ? (
+            <Submenu submenus={submenu} setSubwidth={getSubwith} />
+          ) : (
+            ''
+          )}
         </div>
       </div>
-      <div className="userContainer"></div>
+      <div className="userContainer">
+        <button
+          className="btnContainer"
+          onMouseOver={() => setBtnicon(<FaArrowRight />)}
+          onMouseLeave={() => setBtnicon(<FaChevronRight />)}
+        >
+          Sign in {btnIcon}
+        </button>
+      </div>
     </div>
   );
 }
