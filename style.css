@@ -24,6 +24,9 @@ ul {
 li {
   cursor: pointer;
 }
+span {
+  cursor: pointer;
+}
 .logoContainer {
   font-size: 40px;
   color: rgb(16, 233, 233);
@@ -62,7 +65,18 @@ li {
   border-radius: 20px;
   position: relative;
   transition: width ease-in-out 900ms;
+  position: relative;
 }
+.subMenus span {
+  box-sizing: border-box;
+  padding: 8px 1rem;
+
+  position: relative;
+}
+.subMenus span:hover {
+  color: aqua;
+}
+
 .arrow {
   position: absolute;
   bottom: -8px;
@@ -70,11 +84,27 @@ li {
   transition: all ease-in-out 200ms;
 }
 .btnContainer {
-  width: 100%;
+  width: max-content;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: 1rem;
   outline: none;
-  padding: 8px 16px;
+  font-weight: bold;
+  background-color: none;
+  line-height: 120%;
+}
+.userContainer {
+  width: max-content;
+  background-color: aqua;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btnContainer span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
