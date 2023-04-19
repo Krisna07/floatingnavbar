@@ -6,7 +6,7 @@ import './style.css';
 export default function App() {
   return (
     <div>
-      <Navbar />
+      <Navbar menus={MenuItems} />
     </div>
   );
 }
